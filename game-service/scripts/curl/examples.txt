@@ -1,0 +1,276 @@
+########################################################################################################################
+## curl examples (localhost)
+########################################################################################################################
+
+curl http://localhost:8080/v1/ping
+
+
+curl -H "X-API-KEY: abcdefghijklmn" http://localhost:8080/v1/bin-hashes
+
+
+curl -X "POST" -H "Content-Type: application-json" -d '{"locale":"it-IT","identifiers":["game.bot","game.ccb"]}' http://localhost:8080/v1/strings
+
+
+curl http://localhost:8080/v1/game-info?sessionId=bot96x
+curl http://localhost:8080/v1/game-info?sessionId=ccb96x
+curl http://localhost:8080/v1/game-info?sessionId=mgd96x
+curl http://localhost:8080/v1/game-info?sessionId=lam96x
+curl http://localhost:8080/v1/game-info?sessionId=owl96x
+curl http://localhost:8080/v1/game-info?sessionId=frm96x
+curl http://localhost:8080/v1/game-info?sessionId=ofg96x
+curl http://localhost:8080/v1/game-info?sessionId=fpr96x
+curl http://localhost:8080/v1/game-info?sessionId=btr96x
+curl http://localhost:8080/v1/game-info?sessionId=hog96x
+curl http://localhost:8080/v1/game-info?sessionId=mog96x
+curl http://localhost:8080/v1/game-info?sessionId=bbs96x
+curl http://localhost:8080/v1/game-info?sessionId=ber96x
+curl http://localhost:8080/v1/game-info?sessionId=crw96x
+curl http://localhost:8080/v1/game-info?sessionId=yyl96x
+curl http://localhost:8080/v1/game-info?sessionId=cas96x
+
+
+curl -X 'POST' 'http://localhost:8080/v1/preferences' -H 'Content-Type: application/json' -d '{"sessionId":"bot96x","locale":"nl","music":1,"effects":1,"volume":50,"bet":100}'
+curl -X 'POST' 'http://localhost:8080/v1/preferences' -H 'Content-Type: application/json' -d '{"sessionId":"bot96x","locale":"it"}'
+curl -X 'POST' 'http://localhost:8080/v1/preferences' -H 'Content-Type: application/json' -d '{"sessionId":"bot96x","music":1,"effects":1,"volume":50}'
+curl -X 'POST' 'http://localhost:8080/v1/preferences' -H 'Content-Type: application/json' -d '{"sessionId":"bot96x","bet":100}'
+
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"locale":"en","identifiers":["*"]}' http://localhost:8080/v1/strings
+curl -X "POST" -H "Content-Type: application/json" -d '{"locale":"it","identifiers":["*"]}' http://localhost:8080/v1/strings
+curl -X "POST" -H "Content-Type: application/json" -d '{"locale":"nl","identifiers":["*"]}' http://localhost:8080/v1/strings
+
+curl -X "GET" "http://localhost:8080/v1/plural/en-GB/won-amount-spins?spins=8&amount=100.12&multiplier=10"
+curl -X "GET" "http://localhost:8080/v1/plural/it/won-amount-spins?spins=8&amount=100.5&multiplier=10"
+curl -X "GET" "http://localhost:8080/v1/plural/nl_be/won-amount-spins?spins=8&amount=100&multiplier=10"
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"locale":"en","requests":[{"code":"won-amount-spins","params":{"spins":8,"amount":100.12,"multiplier":10}}]}' http://localhost:8080/v1/plurals
+curl -X "POST" -H "Content-Type: application/json" -d '{"locale":"en","requests":[{"code":"won-amount-spins","params":{"spins":8,"amount":100.12,"multiplier":10}},{"code":"won-amount-spins","params":{"spins":3,"amount":10,"multiplier":1}}]}' http://localhost:8080/v1/plurals
+
+
+curl http://localhost:8080/v1/ccb-flags?sessionId=bot96x&bet=100
+
+
+echo '{"entity":"message","op":1,"data":{"displayMode":1,"environmentID":"DEV","messageID":2,"sessionID":"bot96x","sessionTTL":14400}}' | rpk --brokers localhost:42763 topic produce player-messages
+
+curl http://localhost:8080/v1/messages?sessionId=bot96x&locale=en
+curl http://localhost:8080/v1/messages?sessionId=bot96x&locale=it
+curl http://localhost:8080/v1/messages?sessionId=bot96x&locale=nl
+
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","bet":100}' http://localhost:8080/v1/round
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","roundID":"1","spinSeq":2}' http://localhost:8080/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","roundID":"1"}' http://localhost:8080/v1/round/finish
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","bet":100,"initial":[10,2,3,10,2,3,10,2,3,10,2,3,10,2,3]}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","bet":100,"rngmagic":}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","bet":100,"rngmagic":[300000,116372,300000,101633,300000,21954,300000,227059,263000,228714,263000,10423,263000,134810,294000,126230,294000,38994,294000,94614,263000,195116,263000,243900,263000,109225,300000,41012,300000,194717,300000,106904,10000,4940,15,4,10000,351,15,7,10000,3329,10000,8861]}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot964vZ4uMkM01cjFTy1mclTEKZucDdOVqid","roundID":"pT9rapMkb5AJVS3nYErTOd8Qkp16BtW5","spinSeq":8}' http://localhost:8080/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" "http://localhost:8080/v1/round/next" -d '{"roundId":"Oa80yFnpjJzll7mfsez9z1q21VKDrg29","spinSeq":14,"sessionId":"bot96gMofRtwiVXMJLDvAumFVUFBiZUPPysLU"}'
+
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","bet":100}' http://localhost:8080/v1/round && curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","roundId":"1"}' http://localhost:8080/v1/round/second
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","bet":100}' http://localhost:8080/v1/round
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","roundId":"1"}' http://localhost:8080/v1/round/second
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","roundId":"1"."playerChoice":{"stickySymbol":1}}' http://localhost:8080/v1/round/second
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","roundID":"1","spinSeq":2}' http://localhost:8080/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","roundID":"1"}' http://localhost:8080/v1/round/finish
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","bet":100,"initial":[10,2,10,3,10,4,10,5,10,6,7,8,9,1,2]}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","bet":100,"initial":[1,2,3,4,5,6,7,8,9,10,11,12,10,11,12]}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","bet":100,"initial":[1,2,3,4,13,6,7,8,9,10,13,12,10,11,12]}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","bet":100,"initial":[1,2,3,3,4,4,5,5,6,6,7,8,9,8,9],"state":{"flagged":[0,1,1,1,1,1,1,1,1,1,1,1,1,0]}}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","bet":100,"rngmagic":}' http://localhost:8080/v1/round/debug
+
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96x","bet":100}' http://localhost:8080/v1/round
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96x","roundID":"1","spinSeq":2}' http://localhost:8080/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96x","roundID":"1"}' http://localhost:8080/v1/round/finish
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96x","bet":100,"initial":[1,2,0,0,9,3,4,0,5,6,9,7,8,1,2,9,3,4,9,0,1,2,0,0]}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96x","bet":100,"initial":[1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0]}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96x","bet":100,"rngmagic":}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96x","bet":100,"initial":[1,2,0,0,9,9,3,0,4,5,9,9,6,7,8,9,3,4,5,0,1,2,0,0]}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96x","roundID":"1","spinSeq":2}' http://localhost:8080/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96x","bet":100,"rngmagic":}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96x","bet":100,"scriptId":1}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"mgd96-shared-round","roundID":"wWyiD856AXgYghntNkqgxNmBspd7m3xN","spinSeq":1}' http://localhost:8080/v1/round/next
+
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"lam96x","bet":100}' http://localhost:8080/v1/round
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"lam96x","bet":100,"feature":1}' http://localhost:8080/v1/round/paid
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"lam96x","roundID":"1","playerChoice":{"wing":"south"}}' http://localhost:8080/v1/round/resume
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"lam96x","roundID":"1","playerChoice":{"wing":"north"}}' http://localhost:8080/v1/round/resume
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"lam96x","roundID":"1","spinSeq":2}' http://localhost:8080/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"lam96x","roundID":"1"}' http://localhost:8080/v1/round/finish
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"lam96x","bet":100,"rngmagic":}' http://localhost:8080/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"lam96x","roundID":"1","playerChoice":{"wing":"north"},"rngmagic":}' http://localhost:8080/v1/round/debug-resume
+
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"owl96x","bet":100}' http://localhost:8080/v1/round
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"owl96x","roundID":"1","playerChoice":{"selection":"middle"}}' http://localhost:8080/v1/round/resume
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"owl96x","roundID":"1","spinSeq":2}' http://localhost:8080/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"owl96x","roundID":"1"}' http://localhost:8080/v1/round/finish
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"owl96x","bet":100,"rngmagic":}' http://localhost:8080/v1/round/debug
+
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"frm96x","bet":100}' http://localhost:8080/v1/round
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"frm96x","bet":100,"feature":1}' http://localhost:8080/v1/round/paid
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"frm96x","roundID":"1","spinSeq":2}' http://localhost:8080/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"frm96x","roundID":"1"}' http://localhost:8080/v1/round/finish
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"frm96x","bet":100,"rngmagic":}' http://localhost:8080/v1/round/debug
+
+
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round -d '{"sessionID":"ofg96x","bet":100}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/paid -d '{"sessionID":"ofg96x","bet":100,"feature":1}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/next -d '{"sessionID":"ofg96x","roundID":"1","spinSeq":2}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/finish -d '{"sessionID":"ofg96x","roundID":"1"}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/debug -d '{"sessionID":"ofg96x","bet":100,"initial":[1,2,11,1,2,11,1,2,11,1,2,11,1,2,11]}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/debug -d '{"sessionID":"ofg96x","bet":100,"rngmagic":}'
+
+
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round -d '{"sessionID":"fpr96x","bet":100}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/paid -d '{"sessionID":"fpr96x","bet":100,"feature":1}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/paid -d '{"sessionID":"fpr96x","bet":100,"feature":2}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/next -d '{"sessionID":"fpr96x","roundID":"1","spinSeq":2}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/finish -d '{"sessionID":"fpr96x","roundID":"1"}'
+
+
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round -d '{"sessionID":"btr94x","bet":100}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round -d '{"sessionID":"btr94x","bet":100, "i18n":{"locale":"nl-NL","currency":"GBP"}}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/paid -d '{"sessionID":"btr94x","bet":100,"feature":1}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/next -d '{"sessionID":"btr94x","roundID":"1","spinSeq":2}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/finish -d '{"sessionID":"btr94x","roundID":"1"}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/debug -d '{"sessionID":"btr94x","bet":50000,"scriptId":1}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/debug -d '{"sessionID":"btr94x","bet":100,"rngmagic":}'
+
+
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round -d '{"sessionID":"ber94x","bet":100}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round -d '{"sessionID":"ber94x","bet":100, "i18n":{"locale":"nl-NL","currency":"GBP"}}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/paid -d '{"sessionID":"ber94x","bet":100,"feature":1}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/next -d '{"sessionID":"ber94x","roundID":"1","spinSeq":2}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/finish -d '{"sessionID":"ber94x","roundID":"1"}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/debug -d '{"sessionID":"ber94x","bet":50000,"scriptId":1}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/debug -d '{"sessionID":"ber94x","bet":100,"rngmagic":}'
+
+
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round -d '{"sessionID":"crw96x","bet":100}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round -d '{"sessionID":"crw96x","bet":100, "i18n":{"locale":"nl-NL","currency":"GBP"}}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/debug -d '{"sessionID":"crw96x","bet":100,"initial":[4,4,4,4,4]}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/next -d '{"sessionID":"crw96x","roundID":"1","spinSeq":2}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/round/finish -d '{"sessionID":"crw96x","roundID":"1"}'
+
+
+curl http://localhost:8080/v1/session/x
+
+
+curl -H "Content-Type: application/json" http://localhost:8080/v1/rng-conditions-lu/bot
+curl -H "Content-Type: application/json" http://localhost:8080/v1/rng-conditions-lu/ccb
+curl -H "Content-Type: application/json" http://localhost:8080/v1/rng-conditions-lu/mgd
+curl -H "Content-Type: application/json" http://localhost:8080/v1/rng-conditions-lu/lam
+curl -H "Content-Type: application/json" http://localhost:8080/v1/rng-conditions-lu/owl
+curl -H "Content-Type: application/json" http://localhost:8080/v1/rng-conditions-lu/frm
+curl -H "Content-Type: application/json" http://localhost:8080/v1/rng-conditions-lu/ofg
+curl -H "Content-Type: application/json" http://localhost:8080/v1/rng-conditions-lu/fpr
+
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic/test -d '{"gameID":"mgd","statement":"max-payout()"}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic/test -d '{"gameID":"mgd","statement":"magic-devil-bonus()"}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic/test -d '{"gameID":"mgd","statement":"spin-symbol-count(1,wild,2,1) and not spin-symbol-count(1,wild,2,6)"}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic/test -d '{"gameID":"mgd","statement":"max-payout() or (spin-symbol-count(1,scatter,4,6) and magic-devil-bonus())"}'
+
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic -d '{"gameID":"bot","rtp":94,"count":2,"statement":"result-count-range(1,1)"}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic -d '{"gameID":"bot","rtp":94,"count":2,"statement":"result-count-range(11,21)"}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic -d '{"gameID":"bot","rtp":94,"count":1,"statement":"result-count-range(13,13)","timeout":30}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic -d '{"gameID":"bot","rtp":94,"count":2,"statement":"result-count-range(51,0)"}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic -d '{"gameID":"bot","rtp":94,"count":1,"statement":"spin-symbol-count(4,h1,5)","timeout":30}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic -d '{"gameID":"bot","rtp":94,"count":2,"statement":"bonus-symbol(l1)"}'
+
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic -d '{"gameID":"mgd","rtp":94,"count":2,"statement":"magic-devil-bonus()"}'
+
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic -d '{"gameID":"lam","rtp":94,"count":2,"statement":"player-choice(wing,north)"}'
+curl -X "POST" -H "Content-Type: application/json" http://localhost:8080/v1/rng-magic -d '{"gameID":"lam","rtp":94,"count":2,"statement":"player-choice(wing,south)"}'
+
+
+for run in {1..100}; do curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","bet":100}' http://localhost:8080/v1/round; done
+for run in {1..1000}; do curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","bet":100}' http://localhost:8080/v1/round; done
+for run in {1..10000}; do curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","bet":100}' http://localhost:8080/v1/round; done
+
+
+for run in {1..100}; do curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","bet":100}' http://localhost:8080/v1/round && curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x"}' http://localhost:8080/v1/round/second; done
+for run in {1..1000}; do curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","bet":100}' http://localhost:8080/v1/round && curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x"}' http://localhost:8080/v1/round/second; done
+for run in {1..10000}; do curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x","bet":100}' http://localhost:8080/v1/round && curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"ccb96x"}' http://localhost:8080/v1/round/second; done
+
+
+ddosify -t http://localhost:8080/v1/round -n 1000 -d 5 -p http -m post -b '{"sessionID":"bot96x","bet":100}' -h 'Content-Type: application/json'
+ddosify -t http://localhost:8080/v1/round -n 10000 -d 5 -p http -m post -b '{"sessionID":"bot96x","bet":100}' -h 'Content-Type: application/json'
+ddosify -t http://localhost:8080/v1/round -n 20000 -d 5 -p http -m post -b '{"sessionID":"bot96x","bet":100}' -h 'Content-Type: application/json'
+ddosify -t http://localhost:8080/v1/round -n 50000 -d 10 -p http -m post -b '{"sessionID":"bot96x","bet":100}' -h 'Content-Type: application/json'
+
+
+curl -w "@/home/gerard/curl-times" -H "X-API-KEY: abcdefghijklmn" -o /dev/null http://localhost:8080/v1/bin-hashes
+curl -w "@/home/gerard/curl-times" curl -s -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","bet":100}' -o /dev/null http://localhost:8080/v1/round
+
+
+for run in {1..1000}; do curl -s -H "X-API-KEY: abcdefghijklmn" -o /dev/null http://localhost:8080/v1/bin-hashes; done
+
+for run in {1..1000}; do curl -s -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"bot96x","bet":100}' -o /dev/null http://localhost:8080/v1/round; done
+
+
+########################################################################################################################
+## curl examples (gw.dev.topgaming.team/gs)
+########################################################################################################################
+
+curl -i -v -H "X-API-KEY: abcdefghijklmn" https://gw.dev.topgaming.team/gs/v1/bin-hashes
+
+
+curl -X "POST" -H "Content-Type: application-json" -d '{"locale":"it-IT","identifiers":["game.bot","game.ccb"]}' https://gw.dev.topgaming.team/gs/v1/strings
+
+
+scripts/get_bot_session.sh
+scripts/get_ccb_session.sh
+scripts/get_mgd_session.sh
+scripts/get_lam_session.sh
+scripts/get_owl_session.sh
+scripts/get_frm_session.sh
+scripts/get_ofg_session.sh
+scripts/get_fpr_session.sh
+scripts/get_btr_session.sh
+scripts/get_ber_session.sh
+scripts/get_crw_session.sh
+
+
+curl https://gw.dev.topgaming.team/gs/v1/game-info?sessionId=
+
+
+curl -X 'POST' 'https://gw.dev.topgaming.team/gs/v1/preferences' -H 'Content-Type: application/json' -d '{"sessionId":"","locale":"nl","music":100,"effects":100,"bet":100}'
+
+
+curl https://gw.dev.topgaming.team/gs/v1/messages?sessionId=bot96x&locale=en
+curl https://gw.dev.topgaming.team/gs/v1/messages?sessionId=bot96x&locale=it
+curl https://gw.dev.topgaming.team/gs/v1/messages?sessionId=bot96x&locale=nl
+
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","bet":100}' https://gw.dev.topgaming.team/gs/v1/round
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","bet":100}' https://gw.dev.topgaming.team/gs/v1/round/second
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","bet":100,"initial":[10,2,3,10,2,3,10,2,3,10,2,3,10,2,3]}' https://gw.dev.topgaming.team/gs/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","bet":100,"initial":[1,2,3,3,4,4,5,5,6,6,7,8,9,8,9],"state":{"flagged":[0,1,1,1,1,1,1,1,1,1,1,1,1,0]}}' https://gw.dev.topgaming.team/gs/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","bet":100,"rngmagic":}' https://gw.dev.topgaming.team/gs/v1/round/debug
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","roundId":"","playerChoice":{"selection":"middle"},"rngmagic":}' https://gw.dev.topgaming.team/gs/v1/round/debug-resume
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","roundID":"","spinSeq":2}' https://gw.dev.topgaming.team/gs/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","roundID":"","spinSeq":3}' https://gw.dev.topgaming.team/gs/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","roundID":"","spinSeq":4}' https://gw.dev.topgaming.team/gs/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","roundID":"","spinSeq":5}' https://gw.dev.topgaming.team/gs/v1/round/next
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","roundID":"","spinSeq":6}' https://gw.dev.topgaming.team/gs/v1/round/next
+
+curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","roundID":""}' https://gw.dev.topgaming.team/gs/v1/round/finish
+
+
+curl -X “POST” -H “Content-Type: application/json” -d ‘{“sessionId”:“",“bet”:100,“rngmagic”:}’ https://gw.dev.topgaming.team/gs/v1/round/debug
+
+
+for run in {1..100}; do curl -X "POST" -H "Content-Type: application/json" -d '{"sessionID":"","bet":100}' https://gw.dev.topgaming.team/gs/v1/round; done
+
+
+## D-Store
+
+curl -X "GET" -H "X-API-Key: abcdefghijklmn" http://localhost:8001/v1/session-state?session=
+
+curl -X "POST" -H "Content-Type: application/json" -H "X-API-Key: abcdefghijklmn" -d '{"sessionId":"","roundId":"","spin":2}' http://localhost:8001/v1/round/next
